@@ -888,8 +888,9 @@ class SimpleAPIHandler(BaseHTTPRequestHandler):
         self._send_json(404, {"error": "not found"})
 
 
-def run_server(host="0.0.0.0", port=int(os.environ.get("PORT", "8000"))):
+def run_server(host="0.0.0.0", port=None):
     init_db()
+    port = int(os.environ.get("PORT", 10000))
     server = ThreadingHTTPServer((host, port), SimpleAPIHandler)
     logger.info("Server listening on http://%s:%s", host, port)
     server.serve_forever()
